@@ -15,7 +15,7 @@ def generateIDFromExpense(expenses):
         id = e[ID_KEY]
         if currentMaxID < id:
             currentMaxID = id
-        return currentMaxID + 1
+    return currentMaxID + 1
 
 def loadExpenses():
     try:

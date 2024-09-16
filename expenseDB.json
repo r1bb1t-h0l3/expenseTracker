@@ -1,9 +1,0 @@
-{
-    "allExpenses": [
-        {
-            "id": null,
-            "name": "buy groceries",
-            "amount": 20
-        }
-    ]
-}
