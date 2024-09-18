@@ -41,8 +41,14 @@ def addExpense(expenses, expenseName: str, amount: int):
     })
     print(f"ID: {newTaskID} | Expense: {expenseName} | Amount: EUR{amount}")
 
-def updateExpense(expenses):
-    print("update expense")
+def updateExpense(expenses, expenseID: int, expenseName: str, amount: int):
+    for e in expenses:
+        id = e[ID_KEY]
+        if id == expenseID:
+            e[NAME_KEY] = expenseName
+            if amount is not None:
+                e[AMOUNT_KEY] = amount
+            print(f"ID: {expenseID} | updated expense: {expenseName}) | Amount: {amount}")
 
 def deleteExpense(expenses):
     print("delete expense")
@@ -75,7 +81,9 @@ def main():
             exit(3)
 
     elif action == "update":
-        print("update")
+        if len(sys.argv) == 4:
+            updateExpense(expenses, int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), int(sys.argv[4]))
+        print(f"expense ID: {sys.argv[2]} successfully updated to \"{sys.argv[3]}\" with amount EUR{sys.argv[4]}")
 
     elif action == "delete":
         print("delete")

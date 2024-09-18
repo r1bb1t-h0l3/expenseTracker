@@ -25,13 +25,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.expenseTracker.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.expenseTracker.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/sasha/Documents/python/taskTracker/pythonProject"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="expenseTracker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="expenseTracker" />
