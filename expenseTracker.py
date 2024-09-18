@@ -21,7 +21,8 @@ def loadExpenses():
     try:
         with open(DATABASE_NAME, 'r') as file:
             data = json.load(file)
-        return data
+
+        return data[EXPENSE_KEY]
     except:
         return []
 
@@ -41,14 +42,22 @@ def addExpense(expenses, expenseName: str, amount: int):
     })
     print(f"ID: {newTaskID} | Expense: {expenseName} | Amount: EUR{amount}")
 
-def updateExpense(expenses, expenseID: int, expenseName: str, amount: int):
+
+def updateExpense(expenses, expenseID: int, expenseName: str, amount: float):
     for e in expenses:
         id = e[ID_KEY]
         if id == expenseID:
-            e[NAME_KEY] = expenseName
+            message = f"ID: {expenseID}"
             if amount is not None:
                 e[AMOUNT_KEY] = amount
-            print(f"ID: {expenseID} | updated expense: {expenseName}) | Amount: {amount}")
+                message += f" | Amount: EUR{amount}"
+            if len(expenseName) > 0:
+                e[NAME_KEY] = expenseName
+                message += f" | updated expense: \"{expenseName}\""
+            print(message)
+            return
+    print(f"ID {expenseID} doesn't exist")
+
 
 def deleteExpense(expenses):
     print("delete expense")
@@ -81,9 +90,13 @@ def main():
             exit(3)
 
     elif action == "update":
-        if len(sys.argv) == 4:
-            updateExpense(expenses, int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), int(sys.argv[4]))
-        print(f"expense ID: {sys.argv[2]} successfully updated to \"{sys.argv[3]}\" with amount EUR{sys.argv[4]}")
+        if len(sys.argv) >= 4:
+            updateExpense(expenses,
+                          int(sys.argv[2]),
+                          sys.argv[3],
+                          float(sys.argv[4]) if len(sys.argv) > 4 else None)
+        else:
+            print("no valid input detected")
 
     elif action == "delete":
         print("delete")
