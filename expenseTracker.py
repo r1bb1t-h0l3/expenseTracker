@@ -59,14 +59,27 @@ def updateExpense(expenses, expenseID: int, expenseName: str, amount: float):
     print(f"ID {expenseID} doesn't exist")
 
 
-def deleteExpense(expenses):
-    print("delete expense")
+def deleteExpense(expenses, expenseID: int):
+    i = 0
+    while i < len(expenses):
+        print(f"i: {i}")
+        expense = expenses[i]
+        id = expense[ID_KEY]
+        print(f"id: {id}")
+        if id == expenseID:
+            expenses.pop(i)
+            print(f"expense {expenseID} successfully deleted.")
+            return
+        else:
+            i += 1
+    print(f"Current ID {expenseID} doesn't exist")
 
-def viewExpense():
-    print("view Expense")
-
-    # maybe dont need 2 summaries if i can build in argument
-    #for same command to show month
+def viewExpense(expenses):
+    for expense in expenses:
+        print(f"ExpenseID: {expense[ID_KEY]}")
+        print(f"Expensee: {expense[NAME_KEY]}")
+        print(f"Amount: {expense[AMOUNT_KEY]}")
+        print('-'*20)
 
 def viewExpenseSummary():
     print("view summary")
@@ -99,10 +112,17 @@ def main():
             print("no valid input detected")
 
     elif action == "delete":
-        print("delete")
-
+        if len (sys.argv) == 3:
+            deleteExpense(expenses, int(sys.argv[2]))
+        else:
+            print("no valid input detected")
+            exit(4)
     elif action == "view":
-        print("view expenses")
+        if len (sys.argv) == 2:
+            viewExpense(expenses)
+        else:
+            print("unknown action")
+        exit(2)
 
     elif action == "view-summary":
         print("view expense summary")
