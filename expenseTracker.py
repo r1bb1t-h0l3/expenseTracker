@@ -7,6 +7,7 @@ DATABASE_NAME = "expenseDB.json"
 ID_KEY = "id"
 NAME_KEY = "name"
 AMOUNT_KEY = "amount"
+MONTH_KEY = "month"
 EXPENSE_KEY = "allExpenses"
 
 def generateIDFromExpense(expenses):
@@ -81,8 +82,12 @@ def viewExpense(expenses):
         print(f"Amount: {expense[AMOUNT_KEY]}")
         print('-'*20)
 
-def viewExpenseSummary():
-    print("view summary")
+def viewExpenseSummary(allExpenses):
+    sum = 0
+    for e in allExpenses:
+        sum += e[AMOUNT_KEY]
+    print(f"total expenses are EUR{sum}")
+
 
 #def viewExpenseSummaryMonth():
     #print("view summary month")
@@ -125,7 +130,8 @@ def main():
         exit(2)
 
     elif action == "view-summary":
-        print("view expense summary")
+        if len(sys.argv) == 2:
+            viewExpenseSummary(expenses)
 
    #elif action == "view-summary-month":
     # print("view summary month")
