@@ -10,12 +10,12 @@ AMOUNT_KEY = "amount"
 MONTH_KEY = "month"
 EXPENSE_KEY = "allExpenses"
 
-def printMonth(month: int):
+def printMonth(month: int) -> str:
     allMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     return allMonths[month-1]
 
 
-def generateIDFromExpense(expenses):
+def generateIDFromExpense(expenses: [dict]) -> int:
     currentMaxID = 0
     for e in expenses:
         id = e[ID_KEY]
@@ -24,7 +24,7 @@ def generateIDFromExpense(expenses):
     return currentMaxID + 1
 
 
-def loadExpenses():
+def loadExpenses() -> [dict]:
     try:
         with open(DATABASE_NAME, 'r') as file:
             data = json.load(file)
@@ -34,14 +34,14 @@ def loadExpenses():
         return []
 
 
-def saveExpenses(expenses):
+def saveExpenses(expenses: [dict]) -> None:
     expenseRecord = {
         EXPENSE_KEY: expenses
     }
     with open(DATABASE_NAME, 'w') as file:
         json.dump(expenseRecord, file, indent=4)
 
-def addExpense(expenses, expenseName: str, amount: int, month: int):
+def addExpense(expenses: [dict], expenseName: str, amount: int, month: int) -> None:
     newTaskID = generateIDFromExpense(expenses)
     expenses.append({
         ID_KEY: newTaskID,
@@ -52,7 +52,7 @@ def addExpense(expenses, expenseName: str, amount: int, month: int):
     print(f"ID: {newTaskID} | Expense: {expenseName} | Amount: EUR{amount} | Month: {month}")
 
 
-def updateExpense(expenses, expenseID: int, expenseName: str, amount: float, month: int):
+def updateExpense(expenses: [dict], expenseID: int, expenseName: str, amount: float, month: int) -> None:
     for e in expenses:
         id = e[ID_KEY]
         if id == expenseID:
@@ -71,7 +71,7 @@ def updateExpense(expenses, expenseID: int, expenseName: str, amount: float, mon
     print(f"ID {expenseID} doesn't exist")
 
 
-def deleteExpense(expenses, expenseID: int):
+def deleteExpense(expenses: [dict], expenseID: int) -> None:
     i = 0
     while i < len(expenses):
         print(f"i: {i}")
@@ -86,7 +86,7 @@ def deleteExpense(expenses, expenseID: int):
             i += 1
     print(f"Current ID {expenseID} doesn't exist")
 
-def viewExpense(expenses):
+def viewExpense(expenses: [dict]) -> None:
     for expense in expenses:
         print(f"ExpenseID: {expense[ID_KEY]}")
         print(f"Expense: {expense[NAME_KEY]}")
@@ -94,14 +94,14 @@ def viewExpense(expenses):
         print(f"Month: {printMonth(expense[MONTH_KEY])}")
         print('-'*20)
 
-def viewExpenseSummary(expenses):
+def viewExpenseSummary(expenses: [dict]) -> None:
     sum = 0
     for e in expenses:
         sum += e[AMOUNT_KEY]
     print(f"total expenses are EUR{sum}.")
 
 
-def viewExpenseSummaryMonth(expenses, userMonth):
+def viewExpenseSummaryMonth(expenses: [dict], userMonth: int) -> None:
     sum = 0
     for e in expenses:
         m = e[MONTH_KEY]
